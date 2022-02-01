@@ -10,8 +10,8 @@ import twitterLogo from './twitter-logo.svg';
 
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = '';
-const TOTAL_MINT_COUNT = 50;
+
+const CONTRACT_ADDRESS = '0xBFff4133609f3D26681E7Af13BEADc5F7830964e';
 
 /* eslint-disable no-useless-return */
 
@@ -35,6 +35,7 @@ function App() {
 
             console.log('Found authorized account', account);
             setCurrentAccount(account);
+            setupEventListeners();
         } else {
             console.log('No authorized account found');
         }
@@ -57,14 +58,13 @@ function App() {
             console.log('Connected', accounts[0]);
 
             setCurrentAccount(accounts[0]);
+            setupEventListeners();
         } catch (error) {
             console.log(error);
         }
     };
 
     const askContractToMintNFT = async () => {
-        const CONTRACT_ADDRESS = '0x64EEC29191480D27C6Ea3A9575AeB65bDC8C641E';
-
         try {
             const { ethereum } = window;
 
@@ -100,7 +100,58 @@ function App() {
         );
     };
 
+    const setupEventListeners = async () => {
+        const { ethereum } = window;
+
+        if (!ethereum) {
+            console.log('Install MetaMask!');
+
+            return;
+        }
+
+        try {
+            const provider = new ethers.providers.Web3Provider(ethereum);
+
+            const signer = provider.getSigner();
+
+            const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+
+            connectedContract.on('NewEpicNFTMinted', (from, tokenId) => {
+                console.log(from, tokenId.toNumber());
+
+                alert(
+                    `Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`,
+                );
+            });
+
+            console.log('Setup event listener!');
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
+        (async () => {
+            const { ethereum } = window;
+
+            if (!ethereum) {
+                console.log('Install MetaMask!');
+
+                return;
+            }
+
+            const chainId = await ethereum.request({ method: 'eth_chainId' });
+
+            console.log(`Connected to chain ${chainId}`);
+
+            // String, hex code of the chainId of the Rinkebey test network
+            const rinkebyChainId = '0x4';
+
+            if (chainId !== rinkebyChainId) {
+                alert('You are not connected to the Rinkeby Test Network!');
+            }
+        })();
+
         checkIfWalletIsConnected();
     }, []);
 
