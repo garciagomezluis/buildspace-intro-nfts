@@ -2,11 +2,14 @@
     "name": "epic-nfts",
     "version": "1.0.0",
     "description": "",
+    "homepage": "https://garciagomezluis.github.io/buildspace-intro-nfts/",
     "main": "index.js",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d dist"
     },
     "keywords": [],
     "author": "",
@@ -29,6 +32,7 @@
         "eslint-config-prettier": "8.x",
         "eslint-plugin-prettier": "3.x",
         "ethereum-waffle": "^3.4.0",
+        "gh-pages": "^3.2.3",
         "hardhat": "^2.8.3",
         "prettier": "2.x",
         "typescript": "^4.5.4",
