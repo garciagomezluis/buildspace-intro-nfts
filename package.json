@@ -1,9 +1,8 @@
 {
     "name": "epic-nfts",
     "version": "1.0.0",
-    "description": "",
+    "description": "buildspace challenge",
     "homepage": "https://garciagomezluis.github.io/buildspace-intro-nfts/",
-    "main": "index.js",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
@@ -11,9 +10,6 @@
         "predeploy": "npm run build",
         "deploy": "gh-pages -d dist"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
     "devDependencies": {
         "@luchio/eslint-config-vra-ts": "1.x",
         "@luchio/eslint-rules": "1.x",

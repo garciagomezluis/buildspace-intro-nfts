@@ -1,3 +1,6 @@
+/* eslint-disable import/no-absolute-path */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 
@@ -5,8 +8,7 @@ import { abi } from '../artifacts/contracts/MyEpicNFT.sol/MyEpicNFT.json';
 
 import './App.css';
 
-// eslint-disable-next-line import/no-unresolved
-import twitterLogo from './twitter-logo.svg';
+import twitterLogo from '/twitter-logo.svg';
 
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
